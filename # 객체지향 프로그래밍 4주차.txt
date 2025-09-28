@@ -1,0 +1,93 @@
+# 객체지향 프로그래밍 4주차 
+
+## 상속 실습
+
+1. 해당 코드는 Vehicle라는 부모 클래스의 특성(멤버변수, 함수를) 자식 클래스인 Cruise와 AirPlane이 상속받는 예시를 보여주는 코드이다. 
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Vehicle
+{
+private:
+   int person = 0;    // 탑승인원
+   int baggage = 0;       // 화물 무게
+public:
+   void ride()  // 탑승
+   {
+      person++;
+   }
+   void load(int weight) {
+      // 짐 싣기
+      baggage = baggage + weight;
+   };   
+   void getOff() {
+      // 하차
+      person--;
+   };   
+   int getPerson()  // 탑승인원 확인
+   {
+      return person;
+   }
+   int getBaggage()  // 짐 확인
+   {
+      return baggage;
+   }
+};
+
+class Cruise :public Vehicle
+{
+private:
+   int room;
+public:
+   void setRoom(int iRoom) {
+      room = iRoom;
+   }    // 크루즈의 방 수 설정
+   void countPerson()
+   {
+      cout << Vehicle::getPerson() << endl;     // 부모클래스 호출
+   }
+   void countBaggage()
+   {
+      cout << Vehicle::getBaggage() << endl;     // 부모클래스 호출
+   }
+};
+
+class AirPlane :public Vehicle
+{
+private:
+   int seat;
+public:
+   void setSeat(int iSeat) {
+      seat = iSeat;
+   };     // 자리 수 설정
+   void countPerson()    // 탑승인원 확인
+   {
+      cout << Vehicle::getPerson() << endl;     // 부모클래스 호출
+   }
+   void countBaggage()
+   {
+      cout << Vehicle::getBaggage() << endl;     // 부모클래스 호출
+   }
+};
+
+int main(int argc, char const* argv[])
+{
+   Cruise dolphin;
+   dolphin.ride();    // 부모클래스 멤버함수  접근
+   dolphin.load(10);  // 부모클래스 멤버함수  접근
+   dolphin.countPerson();     // 자식클래스 멤버함수 호출
+   dolphin.countBaggage();     // 자식클래스 멤버함수 호출
+
+
+
+   AirPlane cppAir;
+   cppAir.ride();    // 부모클래스의 멤버함수 접근
+   cppAir.load(20);  // 부모클래스 멤버함수  접근 
+   cppAir.countPerson();     // 자식클래스 멤버함수 호출
+   cppAir.countBaggage();     // 자식클래스 멤버함수 호출
+}
+'''
+mian 함수에서 Cruise, AirPlane클래스의 객체를 생성하고 부모 클래스에서 정의된 멤버함수를 호출할 수 있는지 테스트 해볼 수 있다.
+결과는 부모 클래스에 있는 멤버변수와 멤버함수를 상속받은 자식 클래스 객체에서 사용할 수 있다.
